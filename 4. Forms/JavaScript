@@ -1,0 +1,28 @@
+let addUserFormE1 = document.getElementById("addUserForm");
+
+let nameE1 = document.getElementById("name");
+let nameErrMsgE1 = document.getElementById("nameErrMsg");
+
+let emailE1 = document.getElementById("email");
+let emailErrMsgE1 = document.getElementById("emailErrMsg");
+
+let errorMsg = "Required*";
+
+nameE1.addEventListener("blur", function(event) {
+    if (event.target.value === "") {
+        nameErrMsgE1.textContent = errorMsg;
+    } else {
+        nameErrMsgE1.textContent = "";
+    }
+});
+emailE1.addEventListener("blur", function(event) {
+    if (event.target.value === "") {
+        emailErrMsgE1.textContent = errorMsg;
+    } else {
+        emailErrMsgE1.textContent = "";
+    }
+});
+
+addUserFormE1.addEventListener("Submit", function(event) {
+    event.preventDefault();
+});

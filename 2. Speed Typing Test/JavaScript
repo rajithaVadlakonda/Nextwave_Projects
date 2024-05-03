@@ -1,0 +1,52 @@
+let timerE1 = document.getElementById("timer");
+let quoteDisplayE1 = document.getElementById("quoteDisplay");
+let resultE1 = document.getElementById("result");
+let quoteInputE1 = document.getElementById("quoteInput");
+let spinnerE1 = document.getElementById("spinner");
+let speedTypingTestE1 = document.getElementById("speedTypingTest");
+let resetBtnE1 = document.getElementById("resetBtn");
+let submitBtnE1 = document.getElementById("submitBtn");
+let countdown = 0;
+let options = {
+    method: "GET"
+};
+let requestUrl = "https://apis.ccbp.in/random-quote";
+spinnerE1.classList.remove("d-none");
+fetch(requestUrl, options)
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(jsonData) {
+        let quote = jsonData.content;
+        quoteDisplayE1.textContent = quote;
+
+        spinnerE1.classList.add("d-none");
+    });
+let timerId = setInterval(function(event) {
+    countdown = countdown + 1;
+    timerE1.textContent = countdown;
+}, 1000);
+
+function setTimer() {
+    quoteInputE1.value = "";
+    clearInterval(timerId);
+    countdown = 0;
+    setInterval(function(event) {
+        countdown = countdown + 1;
+        timerE1.textContent = countdown;
+    }, 1000);
+}
+
+function getResult() {
+    let inputquote = quoteInputE1.value;
+    let quote = quoteDisplayE1.textContent;
+    if (inputquote === quote) {
+        clearInterval(timerId);
+        resultE1.textContent = "You typed in" + countdown + "seconds";
+    } else {
+        resultE1.textContent = "You typed incorrect sentence";
+    }
+
+}
+submitBtnE1.addEventListener("click", getResult);
+resetBtnE1.addEventListener("click", setTimer);
